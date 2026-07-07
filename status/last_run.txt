@@ -1,8 +1,9 @@
-run: 2026-07-07 19:06 UTC
+run: 2026-07-07 19:09 UTC
 fetch_meta: 1001 registros | 36 campanhas | gasto R$ 221918.73
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
-HTTP 429 em https://public-api.kiwify.com/v1/sales: error code: 1015
-
+HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
+HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
+HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
 HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
 HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
 HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
