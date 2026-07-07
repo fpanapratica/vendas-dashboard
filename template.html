@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard de Vendas — Kiwify + Meta Ads</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--ink:#1a2333;--mut:#68738a;--line:#e4e8f0;--acc:#0f9d58;--acc2:#4c6fff;--red:#d64545;--amber:#c98a06}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);padding:18px}
+h1{font-size:20px;font-weight:700}
+.sub{color:var(--mut);font-size:12px;margin-top:2px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.badge{background:#e8f5ee;color:var(--acc);border:1px solid #bfe3cf;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600}
+.filters{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:14px}
+.f label{display:block;font-size:11px;font-weight:600;color:var(--mut);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+select,input[type=date],input[type=text]{border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:13px;background:#fff;color:var(--ink)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink)}
+.btn:hover{background:#f0f3f9}
+.btn.p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.p:hover{background:#0c8a4c}
+.dd{position:relative}
+.ddPanel{display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:30;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(20,30,60,.15);width:340px;max-height:320px;overflow:auto;padding:8px}
+.ddPanel.open{display:block}
+.ddPanel .tools{display:flex;gap:6px;margin-bottom:6px}
+.ddPanel .tools button{flex:1;font-size:11px;padding:4px;border:1px solid var(--line);border-radius:6px;background:#f7f9fc;cursor:pointer}
+.ddPanel label.it{display:flex;gap:8px;align-items:flex-start;padding:5px 6px;border-radius:6px;font-size:12.5px;cursor:pointer;text-transform:none;color:var(--ink);font-weight:400;margin:0}
+.ddPanel label.it:hover{background:#f2f5fb}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .t{font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+.kpi .v{font-size:21px;font-weight:700;margin-top:6px}
+.kpi .s{font-size:11px;color:var(--mut);margin-top:3px}
+.kpi.g .v{color:var(--acc)} .kpi.b .v{color:var(--acc2)} .kpi.r .v{color:var(--red)} .kpi.a .v{color:var(--amber)}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card h3{font-size:13px;margin-bottom:10px;color:var(--ink)}
+.chartBox{position:relative;height:280px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{color:var(--mut);text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:8px 8px;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;white-space:nowrap}
+.chip{display:inline-block;border-radius:12px;padding:2px 9px;font-size:11px;font-weight:600}
+.chip.paid{background:#e8f5ee;color:#0f7a44}
+.chip.refunded{background:#fdeaea;color:#b23333}
+.chip.chargedback{background:#fff3dc;color:#9a6b00}
+.tblTop{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.pag{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-top:10px;font-size:12px;color:var(--mut)}
+.pag button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:4px 10px;cursor:pointer}
+.pag button:disabled{opacity:.4;cursor:default}
+.mut{color:var(--mut)} .sm{font-size:11px}
+#status{font-size:12px;color:var(--mut);margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div>
+    <h1>📊 Dashboard de Vendas — Kiwify + Meta Ads</h1>
+    <div class="sub">Produtos e campanhas selecionados · Vendas de 2026 · <span id="upd"></span></div>
+  </div>
+  <div class="badge" id="modeBadge">Snapshot</div>
+</div>
+<div id="status"></div>
+
+<div class="filters">
+  <div class="f">
+    <label>Período</label>
+    <select id="dmode">
+      <option value="all">Todo o período</option>
+      <option value="day">Dia específico</option>
+      <option value="range">Intervalo de datas</option>
+      <option value="7">Últimos 7 dias</option>
+      <option value="30">Últimos 30 dias</option>
+      <option value="month">Este mês</option>
+    </select>
+  </div>
+  <div class="f" id="fDay" style="display:none"><label>Dia</label><input type="date" id="day1"></div>
+  <div class="f" id="fFrom" style="display:none"><label>De</label><input type="date" id="dFrom"></div>
+  <div class="f" id="fTo" style="display:none"><label>Até</label><input type="date" id="dTo"></div>
+  <div class="f dd">
+    <label>Produtos</label>
+    <button class="btn" id="prodBtn">Todos os produtos ▾</button>
+    <div class="ddPanel" id="prodPanel"></div>
+  </div>
+  <div class="f dd">
+    <label>Campanhas (gasto)</label>
+    <button class="btn" id="campBtn">Todas as campanhas ▾</button>
+    <div class="ddPanel" id="campPanel"></div>
+  </div>
+  <div class="f" style="margin-left:auto">
+    <label>&nbsp;</label>
+    <button class="btn p" id="refreshBtn" style="display:none">🔄 Atualizar dados</button>
+  </div>
+</div>
+
+<div class="kpis">
+  <div class="kpi g"><div class="t">Receita líquida</div><div class="v" id="kRec">–</div><div class="s" id="kRecS"></div></div>
+  <div class="kpi"><div class="t">Vendas</div><div class="v" id="kQtd">–</div><div class="s" id="kQtdS"></div></div>
+  <div class="kpi b"><div class="t">Ticket médio geral</div><div class="v" id="kTck">–</div><div class="s">receita ÷ nº de vendas</div></div>
+  <div class="kpi b"><div class="t">Ticket médio por comprador</div><div class="v" id="kTckB">–</div><div class="s" id="kBuyS">receita ÷ compradores únicos</div></div>
+  <div class="kpi a"><div class="t">Gasto Meta Ads</div><div class="v" id="kGst">–</div><div class="s" id="kGstS"></div></div>
+  <div class="kpi g"><div class="t">ROAS</div><div class="v" id="kRoas">–</div><div class="s">receita ÷ gasto</div></div>
+  <div class="kpi r"><div class="t">Reembolsos/CBK</div><div class="v" id="kRef">–</div><div class="s" id="kRefS"></div></div>
+</div>
+
+<div class="grid2">
+  <div class="card"><h3>Receita × Gasto por dia</h3><div class="chartBox"><canvas id="chDay"></canvas></div></div>
+  <div class="card"><h3>Top 10 produtos (receita)</h3><div class="chartBox"><canvas id="chProd"></canvas></div></div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="tblTop">
+      <h3>Detalhamento das vendas <span class="mut sm" id="tblInfo"></span></h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input type="text" id="q" placeholder="Buscar cliente, e-mail, produto…" style="width:230px">
+        <button class="btn" id="expCsv">⬇ CSV</button>
+        <button class="btn" id="expXls">⬇ XLS</button>
+      </div>
+    </div>
+    <div style="overflow:auto">
+    <table id="tbl">
+      <thead><tr><th>Data</th><th>Produto</th><th>Cliente</th><th>Status</th><th>Pagamento</th><th class="num">Valor líquido</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    </div>
+    <div class="pag"><span id="pagInfo"></span><button id="pgPrev">‹ Anterior</button><button id="pgNext">Próxima ›</button></div>
+  </div>
+  <div class="card">
+    <div class="tblTop"><h3>Gasto por campanha</h3><button class="btn" id="expGst">⬇ CSV</button></div>
+    <div style="overflow:auto;max-height:420px">
+    <table id="tblG"><thead><tr><th>Campanha</th><th class="num">Gasto</th><th class="num">Cliques</th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+</div>
+
+<script>
+/*__DATA__*/
+const EMBED = null;
+/*__ENDDATA__*/
+
+// ==== estado ====
+let D = null;              // {produtos, vendas, campanhas, campanhaIds, gastos, geradoEm}
+let selProd = null;        // Set de índices
+let selCamp = null;
+let page = 1; const PAGE = 15;
+let chDay = null, chProd = null;
+
+const fmtBRL = v => v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+const fmtN = v => v.toLocaleString('pt-BR');
+const stName = ['paid','refunded','chargedback'];
+const stLabel = ['Pago','Reembolso','Chargeback'];
+
+function setStatus(m){ document.getElementById('status').textContent = m || ''; }
+
+// ==== filtros de data ====
+function dateBounds(){
+  const m = document.getElementById('dmode').value;
+  const today = new Date(); const iso = d => d.toISOString().slice(0,10);
+  if(m==='all') return [null,null];
+  if(m==='day'){ const v = document.getElementById('day1').value; return v?[v,v]:[null,null]; }
+  if(m==='range'){ return [document.getElementById('dFrom').value||null, document.getElementById('dTo').value||null]; }
+  if(m==='7'){ const d=new Date(today); d.setDate(d.getDate()-6); return [iso(d), iso(today)]; }
+  if(m==='30'){ const d=new Date(today); d.setDate(d.getDate()-29); return [iso(d), iso(today)]; }
+  if(m==='month'){ const d=new Date(today.getFullYear(), today.getMonth(), 1); return [iso(d), iso(today)]; }
+  return [null,null];
+}
+
+function filteredSales(){
+  const [a,b] = dateBounds();
+  return D.vendas.filter(s => {
+    const d = s[1].slice(0,10);
+    if(a && d < a) return false;
+    if(b && d > b) return false;
+    if(!selProd.has(s[2])) return false;
+    return true;
+  });
+}
+function filteredSpend(){
+  const [a,b] = dateBounds();
+  return D.gastos.filter(g => {
+    if(a && g[0] < a) return false;
+    if(b && g[0] > b) return false;
+    if(!selCamp.has(g[1])) return false;
+    return true;
+  });
+}
+
+// ==== dropdown multiselect ====
+function buildDD(panelId, btnId, names, selSet, allLabel){
+  const panel = document.getElementById(panelId);
+  const btn = document.getElementById(btnId);
+  panel.innerHTML = '';
+  const tools = document.createElement('div'); tools.className='tools';
+  const bAll = document.createElement('button'); bAll.textContent='Marcar todos';
+  const bNone = document.createElement('button'); bNone.textContent='Desmarcar todos';
+  tools.append(bAll,bNone); panel.append(tools);
+  const boxes = [];
+  names.forEach((n,i)=>{
+    const lab = document.createElement('label'); lab.className='it';
+    const cb = document.createElement('input'); cb.type='checkbox'; cb.checked=selSet.has(i);
+    cb.onchange = ()=>{ cb.checked?selSet.add(i):selSet.delete(i); sync(); render(); };
+    lab.append(cb, document.createTextNode(n)); panel.append(lab); boxes.push(cb);
+  });
+  bAll.onclick = ()=>{ names.forEach((_,i)=>selSet.add(i)); boxes.forEach(c=>c.checked=true); sync(); render(); };
+  bNone.onclick = ()=>{ selSet.clear(); boxes.forEach(c=>c.checked=false); sync(); render(); };
+  function sync(){
+    btn.textContent = (selSet.size===names.length? allLabel : selSet.size+' selecionado(s)') + ' ▾';
+  }
+  btn.onclick = e => { e.stopPropagation(); document.querySelectorAll('.ddPanel').forEach(p=>{ if(p!==panel) p.classList.remove('open'); }); panel.classList.toggle('open'); };
+  panel.onclick = e => e.stopPropagation();
+  sync();
+}
+document.addEventListener('click', ()=> document.querySelectorAll('.ddPanel').forEach(p=>p.classList.remove('open')));
+
+// ==== render ====
+function render(){
+  const S = filteredSales(), G = filteredSpend();
+  const paid = S.filter(s=>s[6]===0);
+  const rec = paid.reduce((t,s)=>t+s[5],0);
+  const buyers = new Set(paid.map(s=>s[4])).size;
+  const gasto = G.reduce((t,g)=>t+g[2],0);
+  const refs = S.filter(s=>s[6]!==0);
+  const refV = refs.reduce((t,s)=>t+s[5],0);
+  document.getElementById('kRec').textContent = fmtBRL(rec);
+  document.getElementById('kRecS').textContent = 'somente vendas pagas';
+  document.getElementById('kQtd').textContent = fmtN(paid.length);
+  document.getElementById('kQtdS').textContent = fmtN(buyers)+' compradores únicos';
+  document.getElementById('kTck').textContent = paid.length? fmtBRL(rec/paid.length) : '–';
+  document.getElementById('kTckB').textContent = buyers? fmtBRL(rec/buyers) : '–';
+  document.getElementById('kGst').textContent = fmtBRL(gasto);
+  document.getElementById('kGstS').textContent = new Set(G.map(g=>g[1])).size + ' campanhas com gasto';
+  document.getElementById('kRoas').textContent = gasto>0? (rec/gasto).toFixed(2)+'×' : '–';
+  document.getElementById('kRef').textContent = fmtBRL(refV);
+  document.getElementById('kRefS').textContent = fmtN(refs.length)+' transações';
+  renderCharts(paid, G);
+  page = 1; renderTable(S);
+  renderSpendTable(G);
+}
+
+function renderCharts(paid, G){
+  const byDayR = {}, byDayG = {};
+  paid.forEach(s=>{ const d=s[1].slice(0,10); byDayR[d]=(byDayR[d]||0)+s[5]; });
+  G.forEach(g=>{ byDayG[g[0]]=(byDayG[g[0]]||0)+g[2]; });
+  const days = [...new Set([...Object.keys(byDayR), ...Object.keys(byDayG)])].sort();
+  const lb = days.map(d=>d.slice(8,10)+'/'+d.slice(5,7));
+  if(chDay) chDay.destroy();
+  chDay = new Chart(document.getElementById('chDay'), {type:'line', data:{labels:lb, datasets:[
+    {label:'Receita', data:days.map(d=>+(byDayR[d]||0).toFixed(2)), borderColor:'#0f9d58', backgroundColor:'rgba(15,157,88,.12)', fill:true, tension:.3, pointRadius:days.length>60?0:2},
+    {label:'Gasto Meta', data:days.map(d=>+(byDayG[d]||0).toFixed(2)), borderColor:'#d64545', backgroundColor:'rgba(214,69,69,.08)', fill:true, tension:.3, pointRadius:days.length>60?0:2}
+  ]}, options:{responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
+    plugins:{legend:{labels:{boxWidth:12,font:{size:11}}}, tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmtBRL(c.parsed.y)}}},
+    scales:{y:{ticks:{callback:v=>'R$ '+(v>=1000? (v/1000).toFixed(0)+'k' : v)}}, x:{ticks:{maxTicksLimit:15}}}}});
+  const byP = {};
+  paid.forEach(s=>{ byP[s[2]]=(byP[s[2]]||0)+s[5]; });
+  const top = Object.entries(byP).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  if(chProd) chProd.destroy();
+  chProd = new Chart(document.getElementById('chProd'), {type:'bar', data:{
+    labels: top.map(t=>{ const n=D.produtos[+t[0]]; return n.length>28? n.slice(0,27)+'…' : n; }),
+    datasets:[{data: top.map(t=>+t[1].toFixed(2)), backgroundColor:'#4c6fff'}]},
+    options:{indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>fmtBRL(c.parsed.x)}}},
+      scales:{x:{ticks:{callback:v=>'R$ '+(v>=1000? (v/1000).toFixed(0)+'k' : v)}}, y:{ticks:{font:{size:10}}}}}});
+}
+
+function tblRows(S){
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  let R = S;
+  if(q) R = S.filter(s => (s[3]+' '+s[4]+' '+D.produtos[s[2]]).toLowerCase().includes(q));
+  return R.slice().sort((a,b)=> b[1].localeCompare(a[1]));
+}
+function renderTable(S){
+  const R = tblRows(S);
+  const pages = Math.max(1, Math.ceil(R.length/PAGE));
+  if(page>pages) page=pages;
+  const rows = R.slice((page-1)*PAGE, page*PAGE);
+  const tb = document.querySelector('#tbl tbody'); tb.innerHTML='';
+  rows.forEach(s=>{
+    const tr = document.createElement('tr');
+    const dt = s[1].slice(8,10)+'/'+s[1].slice(5,7)+'/'+s[1].slice(0,4)+' '+s[1].slice(11,16);
+    tr.innerHTML = `<td>${dt}</td><td>${esc(D.produtos[s[2]])}</td><td>${esc(s[3])}<br><span class="mut sm">${esc(s[4])}</span></td>`+
+      `<td><span class="chip ${stName[s[6]]}">${stLabel[s[6]]}</span></td><td>${esc(s[7])}</td><td class="num"><b>${fmtBRL(s[5])}</b></td>`;
+    tb.append(tr);
+  });
+  document.getElementById('tblInfo').textContent = '('+fmtN(R.length)+' registros)';
+  document.getElementById('pagInfo').textContent = 'Página '+page+' de '+pages;
+  document.getElementById('pgPrev').disabled = page<=1;
+  document.getElementById('pgNext').disabled = page>=pages;
+  document.getElementById('pgPrev').onclick = ()=>{ page--; renderTable(S); };
+  document.getElementById('pgNext').onclick = ()=>{ page++; renderTable(S); };
+}
+function renderSpendTable(G){
+  const byC = {};
+  G.forEach(g=>{ const k=g[1]; byC[k]=byC[k]||[0,0]; byC[k][0]+=g[2]; byC[k][1]+=g[3]; });
+  const rows = Object.entries(byC).sort((a,b)=>b[1][0]-a[1][0]);
+  const tb = document.querySelector('#tblG tbody'); tb.innerHTML='';
+  rows.forEach(([i,v])=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="sm">${esc(D.campanhas[+i])}</td><td class="num"><b>${fmtBRL(v[0])}</b></td><td class="num">${fmtN(v[1])}</td>`;
+    tb.append(tr);
+  });
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// ==== export ====
+function exportRows(){
+  const R = tblRows(filteredSales());
+  const head = ['ID','Data','Produto','Cliente','Email','Status','Pagamento','Valor líquido (R$)'];
+  const lines = R.map(s=>[s[0], s[1].replace('T',' '), D.produtos[s[2]], s[3], s[4], stLabel[s[6]], s[7], s[5].toFixed(2).replace('.',',')]);
+  return {head, lines};
+}
+function dl(name, blob){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),5000); }
+document.getElementById('expCsv').onclick = ()=>{
+  const {head, lines} = exportRows();
+  const csv = '﻿'+[head, ...lines].map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  dl('vendas_detalhamento.csv', new Blob([csv], {type:'text/csv;charset=utf-8'}));
+};
+document.getElementById('expXls').onclick = ()=>{
+  const {head, lines} = exportRows();
+  const tr = r => '<tr>'+r.map(c=>'<td>'+esc(c)+'</td>').join('')+'</tr>';
+  const html = '<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Vendas</x:Name><x:WorksheetOptions/></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table border="1"><tr>'+head.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr>'+lines.map(tr).join('')+'</table></body></html>';
+  dl('vendas_detalhamento.xls', new Blob([html], {type:'application/vnd.ms-excel'}));
+};
+document.getElementById('expGst').onclick = ()=>{
+  const G = filteredSpend(); const byC={};
+  G.forEach(g=>{ byC[g[1]]=byC[g[1]]||[0,0,0]; byC[g[1]][0]+=g[2]; byC[g[1]][1]+=g[3]; byC[g[1]][2]+=g[4]; });
+  const rows = Object.entries(byC).map(([i,v])=>[D.campanhas[+i], v[0].toFixed(2).replace('.',','), v[1], v[2]]);
+  const csv = '﻿'+[['Campanha','Gasto (R$)','Cliques','Impressões'], ...rows].map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  dl('gasto_campanhas.csv', new Blob([csv], {type:'text/csv;charset=utf-8'}));
+};
+
+// ==== data loading ====
+function initWith(data){
+  D = data;
+  selProd = new Set(D.produtos.map((_,i)=>i));
+  selCamp = new Set(D.campanhas.map((_,i)=>i));
+  buildDD('prodPanel','prodBtn', D.produtos, selProd, 'Todos os produtos');
+  buildDD('campPanel','campBtn', D.campanhas, selCamp, 'Todas as campanhas');
+  document.getElementById('upd').textContent = 'Dados: '+D.geradoEm;
+  render();
+}
+document.getElementById('dmode').onchange = function(){
+  const m = this.value;
+  document.getElementById('fDay').style.display = m==='day'?'':'none';
+  document.getElementById('fFrom').style.display = m==='range'?'':'none';
+  document.getElementById('fTo').style.display = m==='range'?'':'none';
+  render();
+};
+['day1','dFrom','dTo'].forEach(id=> document.getElementById(id).onchange = render);
+document.getElementById('q').oninput = ()=>{ page=1; renderTable(filteredSales()); };
+
+/*__LIVE__*/
+if(EMBED){ document.getElementById('modeBadge').textContent = '📄 Snapshot estático'; initWith(EMBED); }
+/*__ENDLIVE__*/
+</script>
+</body>
+</html>
