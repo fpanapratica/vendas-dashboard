@@ -26,6 +26,16 @@ def request(url, data=None, headers=None, retries=3):
             req = urllib.request.Request(url, data=data, headers=headers or {})
             with urllib.request.urlopen(req, timeout=60) as resp:
                 return json.load(resp)
+        except urllib.error.HTTPError as e:
+            body = ""
+            try:
+                body = e.read().decode()[:500]
+            except Exception:
+                pass
+            print(f"HTTP {e.code} em {url.split('?')[0]}: {body}")
+            if i == retries - 1:
+                raise
+            time.sleep(3 * (i + 1))
         except Exception as e:
             if i == retries - 1:
                 raise
