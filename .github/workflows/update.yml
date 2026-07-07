@@ -1,0 +1,55 @@
+name: Atualiza dashboard
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-dashboard
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Busca dados e monta dashboard
+        id: build
+        env:
+          KIWIFY_CLIENT_ID: ${{ secrets.KIWIFY_CLIENT_ID }}
+          KIWIFY_CLIENT_SECRET: ${{ secrets.KIWIFY_CLIENT_SECRET }}
+          KIWIFY_ACCOUNT_ID: ${{ secrets.KIWIFY_ACCOUNT_ID }}
+          WINDSOR_API_KEY: ${{ secrets.WINDSOR_API_KEY }}
+        run: |
+          set -o pipefail
+          mkdir -p status
+          {
+            echo "run: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            python scripts/fetch_meta.py &&
+            python scripts/fetch_kiwify.py &&
+            python scripts/build.py &&
+            echo "RESULTADO: SUCESSO"
+          } 2>&1 | tee status/last_run.txt || { echo "RESULTADO: FALHA" >> status/last_run.txt; exit 1; }
+
+      - name: Publica (sucesso ou apenas status em falha)
+        if: always()
+        run: |
+          git config user.name "Dashboard Bot"
+          git config user.email "dashboard@fpanapratica"
+          git add status/last_run.txt
+          if [ "${{ steps.build.outcome }}" = "success" ]; then
+            git add index.html
+          fi
+          git commit -m "atualiza dashboard (actions)" || echo "nada a commitar"
+          git push
