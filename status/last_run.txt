@@ -1,3 +1,4 @@
-run: 2026-07-07 18:38 UTC
-ERRO: secrets não cadastrados no repositório: WINDSOR_API_KEY
+run: 2026-07-07 18:58 UTC
+fetch_meta: 1001 registros | 36 campanhas | gasto R$ 221918.73
+ERRO: secrets não cadastrados no repositório: KIWIFY_CLIENT_ID, KIWIFY_CLIENT_SECRET, KIWIFY_ACCOUNT_ID
 RESULTADO: FALHA
