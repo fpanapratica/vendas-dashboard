@@ -1,4 +1,30 @@
-run: 2026-07-07 18:58 UTC
+run: 2026-07-07 19:02 UTC
 fetch_meta: 1001 registros | 36 campanhas | gasto R$ 221918.73
-ERRO: secrets não cadastrados no repositório: KIWIFY_CLIENT_ID, KIWIFY_CLIENT_SECRET, KIWIFY_ACCOUNT_ID
+retry 1 apos erro: HTTPError: HTTP Error 400: Bad Request
+retry 2 apos erro: HTTPError: HTTP Error 400: Bad Request
+Traceback (most recent call last):
+  File "/home/runner/work/vendas-dashboard/vendas-dashboard/scripts/fetch_kiwify.py", line 87, in <module>
+    payload = request(f"{BASE_URL}/sales?{q}", headers=HDR)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/vendas-dashboard/vendas-dashboard/scripts/fetch_kiwify.py", line 27, in request
+    with urllib.request.urlopen(req, timeout=60) as resp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request
 RESULTADO: FALHA
