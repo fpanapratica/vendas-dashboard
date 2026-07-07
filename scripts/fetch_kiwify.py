@@ -20,7 +20,7 @@ SP = ZoneInfo("America/Sao_Paulo")
 PAY_LABEL = {"credit_card": "Cartão de crédito", "pix": "Pix", "boleto": "Boleto"}
 
 
-def request(url, data=None, headers=None, retries=3):
+def request(url, data=None, headers=None, retries=6):
     for i in range(retries):
         try:
             req = urllib.request.Request(url, data=data, headers=headers or {})
@@ -35,7 +35,7 @@ def request(url, data=None, headers=None, retries=3):
             print(f"HTTP {e.code} em {url.split('?')[0]}: {body}")
             if i == retries - 1:
                 raise
-            time.sleep(3 * (i + 1))
+            time.sleep(30 if e.code == 429 else 5 * (i + 1))
         except Exception as e:
             if i == retries - 1:
                 raise
@@ -126,6 +126,7 @@ while win_start < now_utc:
                 "Pagamento": PAY_LABEL.get(pay, pay),
             })
         total_pages += 1
+        time.sleep(0.7)
         pag = payload.get("pagination") or {}
         total = pag.get("count") or pag.get("total") or pag.get("total_count")
         if len(data) < page_size or (total and page * page_size >= int(total)):
