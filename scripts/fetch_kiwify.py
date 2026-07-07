@@ -83,49 +83,59 @@ def to_local_str(iso):
     return dt.astimezone(SP).strftime("%d/%m/%Y %H:%M:%S")
 
 
-# --- Paginação de vendas ---
-sales, page, page_size = [], 1, 100
+# --- Paginação de vendas (janelas de <=90 dias) ---
+from datetime import timedelta
+sales, page_size = [], 100
 statuses_seen = {}
 sample_keys_printed = False
-while True:
-    q = urllib.parse.urlencode({
-        "start_date": "2026-01-01T00:00:00.000Z",
-        "end_date": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"),
-        "page_size": page_size,
-        "page_number": page,
-    })
-    payload = request(f"{BASE_URL}/sales?{q}", headers=HDR)
-    data = payload.get("data") or payload.get("sales") or []
-    if not isinstance(data, list):
-        print("ERRO fetch_kiwify: formato inesperado. chaves:", list(payload.keys()))
-        sys.exit(1)
-    if page == 1 and data and not sample_keys_printed:
-        print("chaves de uma venda:", sorted(data[0].keys()))
-        sample_keys_printed = True
-    for s in data:
-        st = str(first(s, "status") or "")
-        statuses_seen[st] = statuses_seen.get(st, 0) + 1
-        created = first(s, "created_at", "create_date", "reference_date")
-        net = first(s, "net_amount", "commissions.my_commission", "commissioned_stores.0.value")
-        pay = str(first(s, "payment_method", "payment.method") or "")
-        sales.append({
-            "ID da venda": str(first(s, "id", "order_id", "reference") or ""),
-            "Status": st,
-            "Data de Criação": to_local_str(created) or "",
-            "Produto": str(first(s, "product.name", "product_name") or "").strip(),
-            "Cliente": str(first(s, "customer.name", "customer.full_name", "customer_name") or "").strip(),
-            "Email": str(first(s, "customer.email", "customer_email") or "").strip(),
-            "net_cents": net,
-            "Pagamento": PAY_LABEL.get(pay, pay),
+win_start = datetime(2026, 1, 1, tzinfo=timezone.utc)
+now_utc = datetime.now(timezone.utc)
+total_pages = 0
+while win_start < now_utc:
+    win_end = min(win_start + timedelta(days=85), now_utc)
+    page = 1
+    while True:
+        q = urllib.parse.urlencode({
+            "start_date": win_start.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+            "end_date": win_end.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+            "page_size": page_size,
+            "page_number": page,
         })
-    pag = payload.get("pagination") or {}
-    total = pag.get("count") or pag.get("total") or pag.get("total_count")
-    if len(data) < page_size or (total and page * page_size >= int(total)):
-        break
-    page += 1
-    if page > 500:
-        print("ERRO fetch_kiwify: mais de 500 páginas, abortando")
-        sys.exit(1)
+        payload = request(f"{BASE_URL}/sales?{q}", headers=HDR)
+        data = payload.get("data") or payload.get("sales") or []
+        if not isinstance(data, list):
+            print("ERRO fetch_kiwify: formato inesperado. chaves:", list(payload.keys()))
+            sys.exit(1)
+        if data and not sample_keys_printed:
+            print("chaves de uma venda:", sorted(data[0].keys()))
+            sample_keys_printed = True
+        for s in data:
+            st = str(first(s, "status") or "")
+            statuses_seen[st] = statuses_seen.get(st, 0) + 1
+            created = first(s, "created_at", "create_date", "reference_date")
+            net = first(s, "net_amount", "commissions.my_commission", "commissioned_stores.0.value")
+            pay = str(first(s, "payment_method", "payment.method") or "")
+            sales.append({
+                "ID da venda": str(first(s, "id", "order_id", "reference") or ""),
+                "Status": st,
+                "Data de Criação": to_local_str(created) or "",
+                "Produto": str(first(s, "product.name", "product_name") or "").strip(),
+                "Cliente": str(first(s, "customer.name", "customer.full_name", "customer_name") or "").strip(),
+                "Email": str(first(s, "customer.email", "customer_email") or "").strip(),
+                "net_cents": net,
+                "Pagamento": PAY_LABEL.get(pay, pay),
+            })
+        total_pages += 1
+        pag = payload.get("pagination") or {}
+        total = pag.get("count") or pag.get("total") or pag.get("total_count")
+        if len(data) < page_size or (total and page * page_size >= int(total)):
+            break
+        page += 1
+        if page > 500:
+            print("ERRO fetch_kiwify: mais de 500 páginas na janela, abortando")
+            sys.exit(1)
+    win_start = win_end
+page = total_pages
 
 print(f"fetch_kiwify: {len(sales)} vendas | páginas: {page} | status: {statuses_seen}")
 
