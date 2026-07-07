@@ -1,10 +1,13 @@
-run: 2026-07-07 19:04 UTC
+run: 2026-07-07 19:06 UTC
 fetch_meta: 1001 registros | 36 campanhas | gasto R$ 221918.73
-HTTP 400 em https://public-api.kiwify.com/v1/sales: {"error":"validation_error","message":"ValidationError: The period between start_date and end_date should not be longer than 90 days."}
-HTTP 400 em https://public-api.kiwify.com/v1/sales: {"error":"validation_error","message":"ValidationError: The period between start_date and end_date should not be longer than 90 days."}
-HTTP 400 em https://public-api.kiwify.com/v1/sales: {"error":"validation_error","message":"ValidationError: The period between start_date and end_date should not be longer than 90 days."}
+chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
+HTTP 429 em https://public-api.kiwify.com/v1/sales: error code: 1015
+
+HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
+HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
+HTTP 500 em https://public-api.kiwify.com/v1/sales: {"error":"internal_error","message":"Something went wrong"}
 Traceback (most recent call last):
-  File "/home/runner/work/vendas-dashboard/vendas-dashboard/scripts/fetch_kiwify.py", line 97, in <module>
+  File "/home/runner/work/vendas-dashboard/vendas-dashboard/scripts/fetch_kiwify.py", line 104, in <module>
     payload = request(f"{BASE_URL}/sales?{q}", headers=HDR)
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/vendas-dashboard/vendas-dashboard/scripts/fetch_kiwify.py", line 27, in request
@@ -27,5 +30,5 @@ Traceback (most recent call last):
              ^^^^^^^^^^^
   File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 639, in http_error_default
     raise HTTPError(req.full_url, code, msg, hdrs, fp)
-urllib.error.HTTPError: HTTP Error 400: Bad Request
+urllib.error.HTTPError: HTTP Error 500: Internal Server Error
 RESULTADO: FALHA
