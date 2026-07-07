@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 """Busca gastos Meta Ads 2026 via API do Windsor.ai e grava meta_ads_2026.json."""
 import json, os, sys, urllib.parse, urllib.request
+import os, sys
+_missing = [k for k in ['WINDSOR_API_KEY'] if not os.environ.get(k)]
+if _missing:
+    print('ERRO: secrets não cadastrados no repositório:', ', '.join(_missing))
+    sys.exit(1)
+
 from datetime import datetime
 from zoneinfo import ZoneInfo
 

@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 """Busca vendas 2026 via API oficial da Kiwify e grava kiwify_sales_raw.csv
 no mesmo formato do export CSV do painel (colunas usadas pelo build.py)."""
+import os, sys
+_missing = [k for k in ['KIWIFY_CLIENT_ID', 'KIWIFY_CLIENT_SECRET', 'KIWIFY_ACCOUNT_ID'] if not os.environ.get(k)]
+if _missing:
+    print('ERRO: secrets não cadastrados no repositório:', ', '.join(_missing))
+    sys.exit(1)
+
 import csv, json, os, sys, time, urllib.parse, urllib.request
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
