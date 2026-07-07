@@ -92,7 +92,7 @@ win_start = datetime(2026, 1, 1, tzinfo=timezone.utc)
 now_utc = datetime.now(timezone.utc)
 total_pages = 0
 while win_start < now_utc:
-    win_end = min(win_start + timedelta(days=85), now_utc)
+    win_end = min(win_start + timedelta(days=10), now_utc)
     page = 1
     while True:
         q = urllib.parse.urlencode({
@@ -135,6 +135,7 @@ while win_start < now_utc:
         if page > 500:
             print("ERRO fetch_kiwify: mais de 500 páginas na janela, abortando")
             sys.exit(1)
+    print(f"janela {win_start.date()} -> {win_end.date()}: {page} páginas, acumulado {len(sales)} vendas")
     win_start = win_end
 page = total_pages
 
