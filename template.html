@@ -102,6 +102,8 @@ td.num,th.num{text-align:right;white-space:nowrap}
   <div class="kpi b"><div class="t">Ticket médio geral</div><div class="v" id="kTck">–</div><div class="s">receita ÷ nº de vendas</div></div>
   <div class="kpi b"><div class="t">Ticket médio por comprador</div><div class="v" id="kTckB">–</div><div class="s" id="kBuyS">receita ÷ compradores únicos</div></div>
   <div class="kpi a"><div class="t">Gasto Meta Ads</div><div class="v" id="kGst">–</div><div class="s" id="kGstS"></div></div>
+  <div class="kpi a"><div class="t">Gasto Meta Ads com Imposto</div><div class="v" id="kGstI">–</div><div class="s">gasto + 13,8% de imposto</div></div>
+  <div class="kpi g"><div class="t">Lucro</div><div class="v" id="kLuc">–</div><div class="s">receita líquida − gasto com imposto</div></div>
   <div class="kpi g"><div class="t">ROAS</div><div class="v" id="kRoas">–</div><div class="s">receita ÷ gasto</div></div>
   <div class="kpi r"><div class="t">Reembolsos/CBK</div><div class="v" id="kRef">–</div><div class="s" id="kRefS"></div></div>
 </div>
@@ -234,6 +236,11 @@ function render(){
   document.getElementById('kGst').textContent = fmtBRL(gasto);
   document.getElementById('kGstS').textContent = new Set(G.map(g=>g[1])).size + ' campanhas com gasto';
   document.getElementById('kRoas').textContent = gasto>0? (rec/gasto).toFixed(2)+'×' : '–';
+  const gastoImp = gasto*1.138, lucro = rec-gastoImp;
+  document.getElementById('kGstI').textContent = fmtBRL(gastoImp);
+  const kLuc = document.getElementById('kLuc');
+  kLuc.textContent = fmtBRL(lucro);
+  kLuc.style.color = lucro>=0 ? 'var(--acc)' : 'var(--red)';
   document.getElementById('kRef').textContent = fmtBRL(refV);
   document.getElementById('kRefS').textContent = fmtN(refs.length)+' transações';
   renderCharts(paid, G);

@@ -35,6 +35,8 @@ if not rows:
 out = []
 for r in rows:
     name = (r.get("campaign") or "").lower()
+    if "investimento" in name:
+        continue
     if any(t in name for t in TERMS):
         out.append({k: r.get(k) for k in ("date", "campaign", "campaign_id", "spend", "clicks", "impressions")})
 
