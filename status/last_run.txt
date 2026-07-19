@@ -1,24 +1,37 @@
-run: 2026-07-19 08:57 UTC
-Traceback (most recent call last):
-  File "/home/runner/work/vendas-dashboard/vendas-dashboard/scripts/fetch_meta.py", line 27, in <module>
-    with urllib.request.urlopen(url, timeout=120) as resp:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 215, in urlopen
-    return opener.open(url, data, timeout)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 521, in open
-    response = meth(req, response)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 630, in http_response
-    response = self.parent.error(
-               ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 559, in error
-    return self._call_chain(*args)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 492, in _call_chain
-    result = func(*args)
-             ^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/urllib/request.py", line 639, in http_error_default
-    raise HTTPError(req.full_url, code, msg, hdrs, fp)
-urllib.error.HTTPError: HTTP Error 500: INTERNAL SERVER ERROR
-RESULTADO: FALHA
+run: 2026-07-19 12:08 UTC
+fetch_meta: 1226 registros | 34 campanhas | gasto R$ 269016.41
+chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
+janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
+janela 2026-01-11 -> 2026-01-21: 3 páginas, acumulado 404 vendas
+janela 2026-01-21 -> 2026-01-31: 3 páginas, acumulado 654 vendas
+janela 2026-01-31 -> 2026-02-10: 2 páginas, acumulado 814 vendas
+janela 2026-02-10 -> 2026-02-20: 2 páginas, acumulado 986 vendas
+janela 2026-02-20 -> 2026-03-02: 2 páginas, acumulado 1113 vendas
+janela 2026-03-02 -> 2026-03-12: 3 páginas, acumulado 1326 vendas
+janela 2026-03-12 -> 2026-03-22: 3 páginas, acumulado 1598 vendas
+janela 2026-03-22 -> 2026-04-01: 3 páginas, acumulado 1816 vendas
+janela 2026-04-01 -> 2026-04-11: 2 páginas, acumulado 1971 vendas
+janela 2026-04-11 -> 2026-04-21: 3 páginas, acumulado 2269 vendas
+janela 2026-04-21 -> 2026-05-01: 3 páginas, acumulado 2477 vendas
+janela 2026-05-01 -> 2026-05-11: 6 páginas, acumulado 3068 vendas
+janela 2026-05-11 -> 2026-05-21: 22 páginas, acumulado 5182 vendas
+janela 2026-05-21 -> 2026-05-31: 27 páginas, acumulado 7848 vendas
+janela 2026-05-31 -> 2026-06-10: 23 páginas, acumulado 10118 vendas
+janela 2026-06-10 -> 2026-06-20: 26 páginas, acumulado 12646 vendas
+janela 2026-06-20 -> 2026-06-30: 23 páginas, acumulado 14874 vendas
+janela 2026-06-30 -> 2026-07-10: 24 páginas, acumulado 17235 vendas
+janela 2026-07-10 -> 2026-07-19: 20 páginas, acumulado 19197 vendas
+fetch_kiwify: 19197 vendas | páginas: 202 | status: {'paid': 14172, 'refunded': 530, 'refused': 3374, 'waiting_payment': 1112, 'chargedback': 9}
+net_amount interpretado como CENTAVOS. receita paga: R$ 2558023.04
+kiwify_sales_raw.csv gravado
+vendas selecionadas (paid/refund/cbk): 11632
+pagas: 11197 | receita líquida: R$ 1068661.27
+compradores únicos: 6031
+ticket médio geral: R$ 95.44
+ticket médio por comprador: R$ 177.19
+reembolsos+cbk: 435 | R$ 44248.04
+gasto meta: R$ %.2f | campanhas: 269016.41 34
+produtos ignorados (top10): [('🥝FP&A Na Prática 17.0', 581), ('Plataforma de Ferramentas de Finanças', 364), ('Oferta Combo Claude 3.0', 298), ('Reforma Tributária na Prática', 184), ('Claude para Investimentos', 169), ('🥝Acesso Vitalício FP&A Na Prática', 160), ('Tesouraria Na Prática', 142), ('Oferta Lançamento FP&A Na Prática 15.0', 132), ('Programa de Formação FP&A Na Prática', 123), ('🥝Modelagem financeira', 87)]
+dash_data.json bytes: 1640334
+publicado: /home/runner/work/vendas-dashboard/vendas-dashboard/index.html 1661044
+RESULTADO: SUCESSO
