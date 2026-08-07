@@ -1,4 +1,4 @@
-run: 2026-08-07 16:11 UTC
+run: 2026-08-07 17:11 UTC
 fetch_meta: 1522 registros | 38 campanhas | gasto R$ 335095.51
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
@@ -22,18 +22,18 @@ janela 2026-06-20 -> 2026-06-30: 23 páginas, acumulado 14874 vendas
 janela 2026-06-30 -> 2026-07-10: 24 páginas, acumulado 17235 vendas
 janela 2026-07-10 -> 2026-07-20: 21 páginas, acumulado 19291 vendas
 janela 2026-07-20 -> 2026-07-30: 19 páginas, acumulado 21130 vendas
-janela 2026-07-30 -> 2026-08-07: 15 páginas, acumulado 22617 vendas
-fetch_kiwify: 22617 vendas | páginas: 237 | status: {'paid': 16906, 'refunded': 573, 'refused': 3819, 'waiting_payment': 1308, 'chargedback': 11}
-net_amount interpretado como CENTAVOS. receita paga: R$ 2968857.19
+janela 2026-07-30 -> 2026-08-07: 15 páginas, acumulado 22623 vendas
+fetch_kiwify: 22623 vendas | páginas: 237 | status: {'paid': 16911, 'refunded': 573, 'refused': 3819, 'waiting_payment': 1309, 'chargedback': 11}
+net_amount interpretado como CENTAVOS. receita paga: R$ 2969646.72
 kiwify_sales_raw.csv gravado
-vendas selecionadas (paid/refund/cbk): 13973
-pagas: 13499 | receita líquida: R$ 1307388.42
-compradores únicos: 7189
-ticket médio geral: R$ 96.85
-ticket médio por comprador: R$ 181.86
+vendas selecionadas (paid/refund/cbk): 13975
+pagas: 13501 | receita líquida: R$ 1307726.30
+compradores únicos: 7190
+ticket médio geral: R$ 96.86
+ticket médio por comprador: R$ 181.88
 reembolsos+cbk: 474 | R$ 48518.31
 gasto meta: R$ %.2f | campanhas: 335095.51 38
-produtos ignorados (top10): [('🥝FP&A Na Prática 17.0', 635), ('Plataforma de Ferramentas de Finanças', 379), ('Oferta Combo Claude 3.0', 298), ('Claude para Investimentos', 233), ('Reforma Tributária na Prática', 195), ('🥝Acesso Vitalício FP&A Na Prática', 169), ('Tesouraria Na Prática', 157), ('Programa de Formação FP&A Na Prática', 146), ('Oferta Lançamento FP&A Na Prática 15.0', 132), ('Oferta Formação Claude 05.08.2026', 124)]
-dash_data.json bytes: 1974231
-publicado: /home/runner/work/vendas-dashboard/vendas-dashboard/index.html 1994941
+produtos ignorados (top10): [('🥝FP&A Na Prática 17.0', 635), ('Plataforma de Ferramentas de Finanças', 379), ('Oferta Combo Claude 3.0', 298), ('Claude para Investimentos', 235), ('Reforma Tributária na Prática', 195), ('🥝Acesso Vitalício FP&A Na Prática', 169), ('Tesouraria Na Prática', 157), ('Programa de Formação FP&A Na Prática', 146), ('Oferta Lançamento FP&A Na Prática 15.0', 132), ('Oferta Formação Claude 05.08.2026', 125)]
+dash_data.json bytes: 1974520
+publicado: /home/runner/work/vendas-dashboard/vendas-dashboard/index.html 1995230
 RESULTADO: SUCESSO
