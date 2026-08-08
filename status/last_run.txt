@@ -1,4 +1,4 @@
-run: 2026-08-08 05:59 UTC
+run: 2026-08-08 07:17 UTC
 fetch_meta: 1537 registros | 38 campanhas | gasto R$ 339376.89
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
@@ -22,9 +22,9 @@ janela 2026-06-20 -> 2026-06-30: 23 páginas, acumulado 14874 vendas
 janela 2026-06-30 -> 2026-07-10: 24 páginas, acumulado 17235 vendas
 janela 2026-07-10 -> 2026-07-20: 21 páginas, acumulado 19291 vendas
 janela 2026-07-20 -> 2026-07-30: 19 páginas, acumulado 21130 vendas
-janela 2026-07-30 -> 2026-08-08: 16 páginas, acumulado 22712 vendas
-fetch_kiwify: 22712 vendas | páginas: 238 | status: {'paid': 16987, 'refunded': 574, 'refused': 3829, 'waiting_payment': 1311, 'chargedback': 11}
-net_amount interpretado como CENTAVOS. receita paga: R$ 2981103.87
+janela 2026-07-30 -> 2026-08-08: 16 páginas, acumulado 22714 vendas
+fetch_kiwify: 22714 vendas | páginas: 238 | status: {'paid': 16989, 'refunded': 574, 'refused': 3829, 'waiting_payment': 1311, 'chargedback': 11}
+net_amount interpretado como CENTAVOS. receita paga: R$ 2981423.05
 kiwify_sales_raw.csv gravado
 vendas selecionadas (paid/refund/cbk): 14036
 pagas: 13562 | receita líquida: R$ 1315197.76
