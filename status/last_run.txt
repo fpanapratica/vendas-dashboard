@@ -1,4 +1,4 @@
-run: 2026-08-09 08:24 UTC
+run: 2026-08-09 09:23 UTC
 fetch_meta: 1552 registros | 38 campanhas | gasto R$ 343730.53
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
@@ -13,6 +13,7 @@ janela 2026-03-22 -> 2026-04-01: 3 páginas, acumulado 1816 vendas
 janela 2026-04-01 -> 2026-04-11: 2 páginas, acumulado 1971 vendas
 janela 2026-04-11 -> 2026-04-21: 3 páginas, acumulado 2269 vendas
 janela 2026-04-21 -> 2026-05-01: 3 páginas, acumulado 2477 vendas
+HTTP 503 em https://public-api.kiwify.com/v1/sales: Service Unavailable
 janela 2026-05-01 -> 2026-05-11: 6 páginas, acumulado 3068 vendas
 janela 2026-05-11 -> 2026-05-21: 22 páginas, acumulado 5182 vendas
 janela 2026-05-21 -> 2026-05-31: 27 páginas, acumulado 7848 vendas
@@ -23,8 +24,8 @@ janela 2026-06-30 -> 2026-07-10: 24 páginas, acumulado 17235 vendas
 janela 2026-07-10 -> 2026-07-20: 21 páginas, acumulado 19291 vendas
 janela 2026-07-20 -> 2026-07-30: 19 páginas, acumulado 21130 vendas
 janela 2026-07-30 -> 2026-08-09: 17 páginas, acumulado 22798 vendas
-janela 2026-08-09 -> 2026-08-09: 1 páginas, acumulado 22814 vendas
-fetch_kiwify: 22814 vendas | páginas: 240 | status: {'paid': 17061, 'refunded': 574, 'refused': 3849, 'waiting_payment': 1314, 'chargedback': 16}
+janela 2026-08-09 -> 2026-08-09: 1 páginas, acumulado 22815 vendas
+fetch_kiwify: 22815 vendas | páginas: 240 | status: {'paid': 17061, 'refunded': 574, 'refused': 3849, 'waiting_payment': 1315, 'chargedback': 16}
 net_amount interpretado como CENTAVOS. receita paga: R$ 2988076.60
 kiwify_sales_raw.csv gravado
 vendas selecionadas (paid/refund/cbk): 14097
