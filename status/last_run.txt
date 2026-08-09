@@ -1,5 +1,5 @@
-run: 2026-08-09 02:31 UTC
-fetch_meta: 1537 registros | 38 campanhas | gasto R$ 343677.07
+run: 2026-08-09 04:04 UTC
+fetch_meta: 1552 registros | 38 campanhas | gasto R$ 343730.53
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
 janela 2026-01-11 -> 2026-01-21: 3 páginas, acumulado 404 vendas
@@ -33,8 +33,8 @@ compradores únicos: 7252
 ticket médio geral: R$ 96.94
 ticket médio por comprador: R$ 182.03
 reembolsos+cbk: 475 | R$ 48702.52
-gasto meta: R$ %.2f | campanhas: 343677.07 38
+gasto meta: R$ %.2f | campanhas: 343730.53 38
 produtos ignorados (top10): [('🥝FP&A Na Prática 17.0', 635), ('Plataforma de Ferramentas de Finanças', 381), ('Oferta Combo Claude 3.0', 298), ('Claude para Investimentos', 238), ('Reforma Tributária na Prática', 195), ('🥝Acesso Vitalício FP&A Na Prática', 169), ('Tesouraria Na Prática', 159), ('Programa de Formação FP&A Na Prática', 146), ('Oferta Formação Claude 05.08.2026', 134), ('Oferta Lançamento FP&A Na Prática 15.0', 132)]
-dash_data.json bytes: 1991029
-publicado: /home/runner/work/vendas-dashboard/vendas-dashboard/index.html 2011739
+dash_data.json bytes: 1991450
+publicado: /home/runner/work/vendas-dashboard/vendas-dashboard/index.html 2012160
 RESULTADO: SUCESSO
