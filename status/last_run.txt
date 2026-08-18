@@ -1,5 +1,5 @@
-run: 2026-08-18 22:44 UTC
-fetch_meta: 1710 registros | 45 campanhas | gasto R$ 381983.28
+run: 2026-08-18 23:08 UTC
+fetch_meta: 1710 registros | 45 campanhas | gasto R$ 382900.16
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
 janela 2026-01-11 -> 2026-01-21: 3 páginas, acumulado 404 vendas
