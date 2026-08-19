@@ -1,4 +1,4 @@
-run: 2026-08-19 03:12 UTC
+run: 2026-08-19 04:02 UTC
 fetch_meta: 1715 registros | 45 campanhas | gasto R$ 382906.22
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
@@ -15,7 +15,6 @@ janela 2026-04-11 -> 2026-04-21: 3 páginas, acumulado 2269 vendas
 janela 2026-04-21 -> 2026-05-01: 3 páginas, acumulado 2477 vendas
 janela 2026-05-01 -> 2026-05-11: 6 páginas, acumulado 3068 vendas
 janela 2026-05-11 -> 2026-05-21: 22 páginas, acumulado 5182 vendas
-HTTP 503 em https://public-api.kiwify.com/v1/sales: Service Unavailable
 janela 2026-05-21 -> 2026-05-31: 27 páginas, acumulado 7848 vendas
 janela 2026-05-31 -> 2026-06-10: 23 páginas, acumulado 10118 vendas
 janela 2026-06-10 -> 2026-06-20: 26 páginas, acumulado 12646 vendas
