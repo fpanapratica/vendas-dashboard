@@ -1,4 +1,4 @@
-run: 2026-09-03 05:11 UTC
+run: 2026-09-03 09:55 UTC
 fetch_meta: 2026 registros | 54 campanhas | gasto R$ 447881.20
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
@@ -25,7 +25,7 @@ janela 2026-07-20 -> 2026-07-30: 19 páginas, acumulado 21130 vendas
 janela 2026-07-30 -> 2026-08-09: 17 páginas, acumulado 22798 vendas
 janela 2026-08-09 -> 2026-08-19: 15 páginas, acumulado 24289 vendas
 janela 2026-08-19 -> 2026-08-29: 15 páginas, acumulado 25706 vendas
-janela 2026-08-29 -> 2026-09-03: 7 páginas, acumulado 26380 vendas
-fetch_kiwify: 26380 vendas | páginas: 276 | status: {'paid': 19790, 'refunded': 649, 'refused': 4293, 'waiting_payment': 1629, 'chargedback': 19}
-ERRO fetch_kiwify: receita fora da faixa plausível (centavos: 3446614.17 / reais: 344661417.00)
+janela 2026-08-29 -> 2026-09-03: 7 páginas, acumulado 26389 vendas
+fetch_kiwify: 26389 vendas | páginas: 276 | status: {'paid': 19796, 'refunded': 649, 'refused': 4295, 'waiting_payment': 1630, 'chargedback': 19}
+ERRO fetch_kiwify: receita fora da faixa plausível (centavos: 3447542.29 / reais: 344754229.00)
 RESULTADO: FALHA
