@@ -1,9 +1,8 @@
-run: 2026-10-23 20:30 UTC
-fetch_meta: 2861 registros | 83 campanhas | gasto R$ 587434.34
+run: 2026-10-23 23:33 UTC
+fetch_meta: 2861 registros | 83 campanhas | gasto R$ 587953.91
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
 janela 2026-01-11 -> 2026-01-21: 3 páginas, acumulado 404 vendas
-HTTP 503 em https://public-api.kiwify.com/v1/sales: Service Unavailable
 janela 2026-01-21 -> 2026-01-31: 3 páginas, acumulado 654 vendas
 janela 2026-01-31 -> 2026-02-10: 2 páginas, acumulado 814 vendas
 janela 2026-02-10 -> 2026-02-20: 2 páginas, acumulado 986 vendas
@@ -31,7 +30,7 @@ janela 2026-09-08 -> 2026-09-18: 13 páginas, acumulado 27881 vendas
 janela 2026-09-18 -> 2026-09-28: 11 páginas, acumulado 28945 vendas
 janela 2026-09-28 -> 2026-10-08: 10 páginas, acumulado 29913 vendas
 janela 2026-10-08 -> 2026-10-18: 9 páginas, acumulado 30716 vendas
-janela 2026-10-18 -> 2026-10-23: 6 páginas, acumulado 31316 vendas
-fetch_kiwify: 31316 vendas | páginas: 328 | status: {'paid': 23187, 'refunded': 731, 'refused': 5199, 'waiting_payment': 2176, 'chargedback': 23}
-ERRO fetch_kiwify: receita fora da faixa plausível (centavos: 3941371.07 / reais: 394137107.00)
+janela 2026-10-18 -> 2026-10-23: 7 páginas, acumulado 31325 vendas
+fetch_kiwify: 31325 vendas | páginas: 329 | status: {'paid': 23190, 'refunded': 731, 'refused': 5199, 'waiting_payment': 2182, 'chargedback': 23}
+ERRO fetch_kiwify: receita fora da faixa plausível (centavos: 3941489.08 / reais: 394148908.00)
 RESULTADO: FALHA
