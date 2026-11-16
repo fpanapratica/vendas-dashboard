@@ -1,5 +1,5 @@
-run: 2026-11-16 07:20 UTC
-fetch_meta: 3386 registros | 99 campanhas | gasto R$ 668077.93
+run: 2026-11-16 17:29 UTC
+fetch_meta: 3386 registros | 99 campanhas | gasto R$ 669935.75
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
 janela 2026-01-11 -> 2026-01-21: 3 páginas, acumulado 404 vendas
@@ -19,7 +19,6 @@ janela 2026-05-21 -> 2026-05-31: 27 páginas, acumulado 7848 vendas
 janela 2026-05-31 -> 2026-06-10: 23 páginas, acumulado 10118 vendas
 janela 2026-06-10 -> 2026-06-20: 26 páginas, acumulado 12646 vendas
 janela 2026-06-20 -> 2026-06-30: 23 páginas, acumulado 14874 vendas
-HTTP 503 em https://public-api.kiwify.com/v1/sales: Service Unavailable
 janela 2026-06-30 -> 2026-07-10: 24 páginas, acumulado 17235 vendas
 janela 2026-07-10 -> 2026-07-20: 21 páginas, acumulado 19291 vendas
 janela 2026-07-20 -> 2026-07-30: 19 páginas, acumulado 21130 vendas
@@ -33,7 +32,7 @@ janela 2026-09-28 -> 2026-10-08: 10 páginas, acumulado 29913 vendas
 janela 2026-10-08 -> 2026-10-18: 9 páginas, acumulado 30716 vendas
 janela 2026-10-18 -> 2026-10-28: 11 páginas, acumulado 31756 vendas
 janela 2026-10-28 -> 2026-11-07: 3 páginas, acumulado 32048 vendas
-janela 2026-11-07 -> 2026-11-16: 2 páginas, acumulado 32202 vendas
-fetch_kiwify: 32202 vendas | páginas: 338 | status: {'paid': 23785, 'refunded': 746, 'refused': 5412, 'waiting_payment': 2235, 'chargedback': 23, 'created': 1}
-ERRO fetch_kiwify: receita fora da faixa plausível (centavos: 4034801.36 / reais: 403480136.00)
+janela 2026-11-07 -> 2026-11-16: 2 páginas, acumulado 32212 vendas
+fetch_kiwify: 32212 vendas | páginas: 338 | status: {'paid': 23787, 'refunded': 746, 'refused': 5415, 'waiting_payment': 2238, 'chargedback': 23, 'created': 1, 'refund_requested': 2}
+ERRO fetch_kiwify: receita fora da faixa plausível (centavos: 4034967.03 / reais: 403496703.00)
 RESULTADO: FALHA
