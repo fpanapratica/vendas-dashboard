@@ -1,5 +1,5 @@
-run: 2026-11-19 00:28 UTC
-fetch_meta: 3420 registros | 99 campanhas | gasto R$ 679925.98
+run: 2026-11-19 07:59 UTC
+fetch_meta: 3436 registros | 99 campanhas | gasto R$ 680834.39
 chaves de uma venda: ['created_at', 'currency', 'customer', 'id', 'net_amount', 'payment_method', 'product', 'reference', 'shipping', 'status', 'type', 'updated_at']
 janela 2026-01-01 -> 2026-01-11: 2 páginas, acumulado 170 vendas
 janela 2026-01-11 -> 2026-01-21: 3 páginas, acumulado 404 vendas
@@ -33,7 +33,7 @@ janela 2026-10-08 -> 2026-10-18: 9 páginas, acumulado 30716 vendas
 janela 2026-10-18 -> 2026-10-28: 11 páginas, acumulado 31756 vendas
 janela 2026-10-28 -> 2026-11-07: 3 páginas, acumulado 32048 vendas
 janela 2026-11-07 -> 2026-11-17: 2 páginas, acumulado 32213 vendas
-janela 2026-11-17 -> 2026-11-19: 1 páginas, acumulado 32257 vendas
-fetch_kiwify: 32257 vendas | páginas: 339 | status: {'paid': 23820, 'refunded': 750, 'refused': 5426, 'waiting_payment': 2237, 'chargedback': 23, 'created': 1}
-ERRO fetch_kiwify: receita fora da faixa plausível (centavos: 4044199.56 / reais: 404419956.00)
+janela 2026-11-17 -> 2026-11-19: 1 páginas, acumulado 32259 vendas
+fetch_kiwify: 32259 vendas | páginas: 339 | status: {'paid': 23822, 'refunded': 750, 'refused': 5426, 'waiting_payment': 2237, 'chargedback': 23, 'created': 1}
+ERRO fetch_kiwify: receita fora da faixa plausível (centavos: 4045220.06 / reais: 404522006.00)
 RESULTADO: FALHA
