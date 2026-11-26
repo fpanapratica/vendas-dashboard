@@ -1,4 +1,4 @@
-run: 2026-11-26 04:30 UTC
+run: 2026-11-26 14:31 UTC
 Traceback (most recent call last):
   File "/home/runner/work/vendas-dashboard/vendas-dashboard/scripts/fetch_meta.py", line 27, in <module>
     with urllib.request.urlopen(url, timeout=120) as resp:
